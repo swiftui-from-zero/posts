@@ -35,13 +35,13 @@
 稍等片刻，Xcode 就会自动为我们创建出一个 SwiftUI 项目的模板，界面也会跳转至这样：
 
 <p align="center">
-    <img src="img/0_fig5.png" height="400px"/>
+    <img src="img/0_fig5.png"/>
 </p>
 
 点击右上的 Resume，你就可以在右侧预览初始的界面了！也就是正中央的一个 “Hello world”。
 
 <p align="center">
-    <img src="img/0_fig6.png" height="400px"/>
+    <img src="img/0_fig6.png"/>
 </p>
 
 至此，我们的项目就创建好了！
@@ -51,7 +51,7 @@
 上面的示例代码中， SwiftUI 默认给我们添加了一个 `.padding()`，等后面我们再介绍它是干什么用的，现在先把它删掉，然后因为我们是一个介绍会议室的 app 嘛，所以把 `Text("Hello world!")` 改成 `Text("Rooms")`。修改代码之后，你会发现右侧的预览界面自动跟着变化了。
 
 <p align="center">
-    <img src="img/0_fig7.png" height="400px"/>
+    <img src="img/0_fig7.png"/>
 </p>
 
 在 Room 外的蓝框是因为代码中光标停留在了 `Text("Rooms")`，预览在自动提示你这个 `Text` 对应的是屏幕上的哪一部分。
@@ -59,7 +59,7 @@
 下一步，我们要开始在页面上添加内容了。点击右上角的 "+"，选择 Text，点击并拖拽到预览中的 Rooms 文字下方。注意在拖拽到 Rooms 附近的时候，Xcode 会根据相对位置在预览下方做出提示。完成拖拽后，稍等片刻，预览中就在 Rooms 下方出现了 Placeholder 字样。就这样，我们就很轻松地在页面上添加了一个文字组件。
 
 <p align="center">
-    <img src="img/0_gif1.gif" height="400px"/>
+    <img src="img/0_gif1.gif"/>
 </p>
 
 除了右侧的预览产生了变化，你会发现左侧的代码也随之变化为了：
@@ -80,25 +80,25 @@ struct ContentView: View {
 接下来，我们把 `"Placeholder"` 改为 `"20 people"`，表示这个会议室能容纳20人。然后我们希望在这两行文字左边插入一张会议室的图片。按住 command 并点击 `VStack`，在弹出的选项栏中选择 Embed in HStack，从而在 `VStack` 外面插入一个 `HStack`。然后在 `VStack` 前面插入一个 `Image` 视图，这里我们暂时使用系统自带的图片 `Image(systemName: "photo")`。稍等片刻，就可以看到一个图标出现在了之前的两行文字的左边。
 
 <p align="center">
-    <img src="img/0_gif2.gif" height="400px"/>
+    <img src="img/0_gif2.gif"/>
 </p>
 
 下面，我们希望稍微调整一下我们的视图的外观样式。这点也可以在右侧的预览中直接实现。选中 `VStack`（可以在预览中选中，或者通过左侧的代码选中），按住 command 并点击预览中的蓝框，在选项栏中选择 Show SwiftUI Inspector。这个时候界面会弹出 `VStack` 的 Inspector，里面可以调整 `VStack` 的样式。调整上面的 Alignment 为左对齐（在 SwiftUI 中，称为 leading 对齐，这是为了更好地适应阿拉伯语这样从从右至左的界面），你会发现预览和左边的代码都随着你的选择而变化了。
 
 <p align="center">
-    <img src="img/0_gif3.gif" height="400px"/>
+    <img src="img/0_gif3.gif"/>
 </p>
 
 类似的，我们可以修改文字的样式。这次我们把 20 people 这行文字的大小改为 subheadline。
 
 <p align="center">
-    <img src="img/0_fig8.png" height="400px"/>
+    <img src="img/0_fig8.png"/>
 </p>
 
 通过对比代码变化，相比你也能看出该如何在 SwiftUI 代码中更改视图样式。让我们改变一下 `"20 people"` 这行字的颜色。方法就是在上面一步添加的 `.fond(.subheadline)` 下面，添加一行 `".foregroundColor(.secondary)"`。
 
 <p align="center">
-    <img src="img/0_gif4.gif" height="400px"/>
+    <img src="img/0_gif4.gif"/>
 </p>
 
 至此，我们的 `ControlView` 已经变成了：
@@ -124,7 +124,7 @@ struct ContentView: View {
 按住 command 点击 `HStack`（注意，这个 command + 鼠标左键 的操作在预览窗口，还是代码上都可以做），选择 Embed in List。
 
 <p align="center">
-    <img src="img/0_gif5.gif" height="400px"/>
+    <img src="img/0_gif5.gif"/>
 </p>
 
 Xcode 就会自动制作一个包含5个我们的视图的列表了！
