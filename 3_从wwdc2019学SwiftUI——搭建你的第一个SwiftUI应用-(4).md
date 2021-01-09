@@ -269,4 +269,62 @@ struct ContentView: View {
 
 修改代码后运行预览，就可以得到上面动图中的效果了。
 
-到这里我们就基本完成了这个会议室应用了。在下一篇教程中，我会介绍该如何更好地使用预览功能，去查看不同状态（如黑暗模式）下的样子。并且我们会介绍该如何使用本地化工具，让我们的程序可以更好地适应不同地区、不同语言的使用习惯。敬请期待！
+## 为不同环境设置添加更多预览
+
+到这里我们就完成了这个会议室应用！不过在用户使用应用的时候，可能会有不同的系统环境设置，例如有的用户可能愿意使用更大的默认字号，有的用户喜欢黑暗模式。在开发过程中，我们也需要保证这些用户能正常使用我们的应用，那么有没有一些能方便查看不同环境设置下我们的应用的样子呢？别担心，SwiftUI 的工程师们也考虑到了这一点，我们可以通过增加不同的预览来实现这个功能。
+
+和 (3) 中同时查看有无摄像头的页面一样。我们可以通过增加预览的方式来查看不同系统环境下应用的样子。在 `ContentView.swfit` 的预览部分的代码中。按住 command 点击 `ContentView`，并选择 Group，从而将预览视图放入 `Group` 中。对于大字号，插入
+
+```swift
+ContentView(store: RoomStore(rooms: testData))
+		.environment(\.sizeCategory, .extraExtraLarge)
+```
+
+修改后的预览部分代码为：
+
+```swift
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView(store: RoomStore(rooms: testData))
+            ContentView(store: RoomStore(rooms: testData))
+                .environment(\.sizeCategory, .extraExtraLarge)
+        }
+    }
+}
+```
+
+这时你就可以在右侧看到增加的超大字号下的视图了：
+
+<img src="img/3_gif4.gif"/>
+
+我们还可以继续添加黑暗模式下的预览视图。在刚刚的 `Group` 中加入
+
+```swift
+ContentView(store: RoomStore(rooms: testData))
+		.environment(\.sizeCategory, .extraExtraLarge)
+```
+
+使预览部分代码变为：
+
+```swift
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView(store: RoomStore(rooms: testData))
+            ContentView(store: RoomStore(rooms: testData))
+                .environment(\.sizeCategory, .extraExtraLarge)
+            ContentView(store: RoomStore(rooms: testData))
+                .environment(\.colorScheme, .dark)
+        }
+    }
+}
+```
+
+我们就多了一个黑暗模式下的预览：
+
+<img src="img/3_fig3.png"/>
+
+
+
+至此，在这一讲中，我们学习了该如何根据用户的输入动态调整数据，如何添加编辑模式，以及如何更好地使用预览功能，去查看不同环境下应用的样子。这也是我们的这个系列教程的最后一篇了，希望通过这几篇文章，能让你对 SwiftUI 的基本使用方法有个大致的了解，也能感受到用 SwiftUI 写一个应用是多么得简单~
