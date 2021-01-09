@@ -20,7 +20,9 @@ git checkout before-new-view
 
 在 Xcode 中新建一个 swift 文件，用于展示会议室的详细信息。在 Xcode 的导航栏中点击 File -> New -> File...，选择 User Interface 中的 SwiftUI View 作为模板
 
-<img src="img/2_fig1.png" height="400px"/>
+<p align="center">
+    <img src="img/2_fig1.png" width="600" />
+</p>
 
 并命名为 RoomDetail。这样 Xcode 就会创建一个名为 RoomDetail.swift 的文件，其中包含了 SwiftUI 视图以及预览的初始模板：
 
