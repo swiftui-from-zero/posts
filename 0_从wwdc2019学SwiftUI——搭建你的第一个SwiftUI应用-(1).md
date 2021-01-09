@@ -11,25 +11,25 @@
 在写代码之前，先要在 Xcode 中新建一个 SwiftUI 项目。用于打开Xcode，点击 Create a new Xcode project 创建新项目。
 
 <p align="center">
-    <img src="img/0_fig1.png" height="300px" />
+    <img src="img/0_fig1.png" width="550" />
 </p>
 
 在 Multiplatform 中选择 iOS 平台， Application 选项中选择 App，并点击 Next。
 
 <p align="center">
-    <img src="img/0_fig2.png" height="400px" />
+    <img src="img/0_fig2.png" width="600" />
 </p>
 
 为你的项目起个名字，这次因为我们要做的是一个记录会议室信息的 app，所以我们把它起名为 Room。注意下面的 Interface 要选择 SwiftUI。再点击 Next。
 
 <p align="center">
-    <img src="img/0_fig3.png" height="400px" />
+    <img src="img/0_fig3.png" width="600" />
 </p>
 
 选择你要存储这个项目的地址，并点击 Create ，就会自动创建我们的项目了。
 
 <p align="center">
-    <img src="img/0_fig4.png" height="350px" />
+    <img src="img/0_fig4.png" width="550" />
 </p>
 
 稍等片刻，Xcode 就会自动为我们创建出一个 SwiftUI 项目的模板，界面也会跳转至这样：
