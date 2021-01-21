@@ -32,11 +32,11 @@ struct Room: Identifiable {
 
 ## 传入并展示数据
 
-打开项目后，我们就要把数据导入视图。在 `ContentView` 中，添加一个成员变量——一个用于存储会议室信息的 `Room` 数组：
+打开项目后，如果界面没有显示 ContentView.swift 的界面，你只需要点击左侧文件列表中的 ContentView.swift 就行了。Xcode 自动为我们生成了很多的文件以及文件夹，在这个系列教程中，我们只需要考虑 Room 文件夹中的几个 `.swift` 文件就好了。恢复界面后，我们就要把数据导入视图。在 `ContentView` 中，添加一个成员变量——一个用于存储会议室信息的 `Room` 数组：
 
 ```swift
 struct ContentView: View {
-  	var rooms : [Room] = []
+    var rooms : [Room] = []
 
     var body: some View {
         List(0 ..< 5) { item in
