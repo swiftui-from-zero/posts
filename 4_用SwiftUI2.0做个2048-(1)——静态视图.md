@@ -2,7 +2,9 @@
 
 2048 已经逐步变成了 UI 届的 "hello world"，所以让我们来用 SwiftUI 2.0 做一个 2048吧！在这个系列教程中，我们将一起写出一个同时支持 iOS 和 macOS 的 2048，最后的效果如下图：
 
-<img src="img/4_gif1.gif" width="500px"/>
+<p align="center">
+    <img src="img/4_gif1.gif" width="500px"/>
+</p>
 
 本系列教程需要 Xcode 12，macOS 11 以上，还没升级的小伙伴赶快升级呀~ 我们可能会忽略一些 SwiftUI 的基础知识，如果你是第一次接触 SwiftUI，希望你花些时间学习一下[从 wwdc 学 SwiftUI —— 搭建你的第一个 SwiftUI 应用](https://github.com/swiftui-from-zero/wwdc2019_building_your_first_app) 系列教程，相信在那里你会很快的对 SwiftUI 这个简单的 UI 框架有所了解。
 
@@ -24,7 +26,9 @@ git checkout tutorial-1-startup
 
 为了在之后支持 macOS，这个项目是我基于 multiplatform app 的模板构建的，如果你想自己从零开始，可以在 Xcode 的选项中根据下图进行选择：
 
-<img src="img/4_fig2.png" width="400px"/>
+<p align="center">
+    <img src="img/4_fig2.png" width="400px"/>
+</p>
 
 除去基本模板生成的代码之外，我还加入了一个 `Utils.swift`，里面有一些预先设置的颜色，方便我们绘制 UI 的时候使用。
 
@@ -32,7 +36,9 @@ git checkout tutorial-1-startup
 
 从上面的成果图可以看出，我们的 UI 界面由 2 部分组成，上面是 2048 的文字标题，下面就是一个棋盘了。显然棋盘的部分更为复杂，所以让我们新建一个 `GameBoard.swift` 文件，主要负责棋盘的内容。因为我们希望在 iOS 和 macOS版本的游戏中使用同样的视图，所以注意在新建的时候选择创建在 Shared 文件夹中。
 
-<img src="img/4_fig3.png" width="500px"/>
+<p align="center">
+    <img src="img/4_fig3.png" width="500px"/>
+</p>
 
 不用多说，我们的棋盘是一个圆角正方形，这里我们设置圆角半径为 5，颜色则选择 `Utils.swift` 中的 `secondBackgroundColor`。修改后的 `GameBoard` 视图变为：
 
