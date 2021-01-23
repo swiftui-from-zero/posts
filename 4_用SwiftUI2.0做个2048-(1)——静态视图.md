@@ -159,7 +159,7 @@ struct Block {
 我们的模型显然是要由一系列滑块组成的，所以让我们创建一个 `Model` 类，其包含一个 `Block` 类型的数组：
 
 ```swift
-class Model: ObservableObject {
+class Model {
     var blocks: [Block]
 }
 ```
@@ -167,7 +167,7 @@ class Model: ObservableObject {
 这里注意，因为我们的整个游戏需要共享同一个模型，所以在创建 `Model` 时，要使用引用类型的类（`class`），而不是值类型的结构体（`struct`）。也是因为这样，所以我们需要给他一个构造函数。玩过 2048 游戏的朋友应该知道，游戏初始化的时候会随机的创建几个滑块，所以让我们来创建一个随机生成滑块的函数 `rand`，并在构造函数里调用 3 次让我们的模型在新游戏时随机有 3 个滑块。
 
 ```swift
-class Model: ObservableObject {
+class Model {
     var blocks: [Block]
     
     init() {
