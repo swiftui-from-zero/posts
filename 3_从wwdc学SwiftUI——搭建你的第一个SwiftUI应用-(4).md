@@ -1,4 +1,4 @@
-# 从wwdc2019学SwiftUI——搭建你的第一个 SwiftUI 应用 (4)
+# 从 wwdc 学 SwiftUI——搭建你的第一个 SwiftUI 应用 (4)
 
 让我们继续跟着 wwdc2019 的 [Introducing SwiftUI: Building Your First App](https://developer.apple.com/videos/play/wwdc2019/204/) 来学习使用 SwiftUI。
 
