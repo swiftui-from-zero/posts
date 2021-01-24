@@ -32,27 +32,21 @@ struct Room: Identifiable {
 
 ## 传入并展示数据
 
-打开项目后，如果界面没有显示 ContentView.swift 的界面，你只需要点击左侧文件列表中的 ContentView.swift 就行了。Xcode 自动为我们生成了很多的文件以及文件夹，在这个系列教程中，我们只需要考虑 Room 文件夹中的几个 `.swift` 文件就好了。恢复界面后，我们就要把数据导入视图。在 `ContentView` 中，添加一个成员变量——一个用于存储会议室信息的 `Room` 数组：
+打开项目后，如果界面没有显示 ContentView.swift 的界面，你只需要点击左侧文件列表中的 ContentView.swift 就行了。Xcode 自动为我们生成了很多的文件以及文件夹，在这个系列教程中，我们只需要考虑 Room 文件夹中的几个 `.swift` 文件就好了。
+
+恢复界面后，我们来把数据导入视图。在 `ContentView` 中，添加一个成员变量——一个用于存储会议室信息的 `Room` 数组：
 
 ```swift
 struct ContentView: View {
     var rooms : [Room] = []
 
     var body: some View {
-        List(0 ..< 5) { item in
-            Image(systemName: "photo")
-            VStack(alignment: .leading) {
-                Text("Rooms")
-                Text("20 people")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-        }
+        ...
     }
 }
 ```
 
-并在负责预览的代码里（也就是 `ContentView.swift` 除去 `struct ContentView` 的那部分），用 `Room.swift` 中的测试数据初始化视图。SwiftUI 很方便的一点就是预览也可以通过代码进行改动，从而让我们可以在写代码的过程中更方便地实时查看预览。
+并在负责预览的代码里（也就是 `ContentView.swift` 除去 `struct ContentView` 的那部分），用 `Room.swift` 中的测试数据初始化视图。SwiftUI 很方便的一点就是预览会随代码的变化动态调整，从而让我们可以在写代码的过程中方便地实时查看预览。
 
 ```swift
 struct ContentView_Previews: PreviewProvider {
@@ -63,7 +57,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-这样，我们就顺利的把数据传给了视图，那么下一步自然就是要可视化这些数据了，也就是显示一个会议室的列表。我们需要把 `List` 的输入从 `0 ..< 5` 改成 `rooms`，并把之前硬编码的 `"Rooms"` 和 `"20 people"`  分别改成会议室的名称和能容纳的人数。最后，再把图片改成房间的缩略图。在下面的动图中，你可以很清楚的看到预览是如何动态地随左侧代码变化的。
+这样，我们就顺利的把数据传给了视图，那么下一步自然就是要可视化这些数据了，也就是显示一个会议室的列表。我们需要把 `List` 的输入从 `0 ..< 5` 改成 `rooms`，从而把每个会议室的信息传给列表的每个节点。其次，把之前硬编码的 `"Rooms"` 和 `"20 people"`  分别改成会议室的名称和能容纳的人数。最后，再把图片改成房间的缩略图（`room.thumbnailName` 表示了图片缩略图的名字，Xcode 会根据名字自动地从我预先加入的图片中选取我们想要的图标）。在下面的动图中，你可以很清楚的看到预览是如何动态地随左侧代码变化的。
 
 <img src="img/1_gif1.gif"/>
 
@@ -87,7 +81,7 @@ struct ContentView: View {
 }
 ```
 
-下一步，我们想为图片加个圆角。你猜的没错，加圆角的方式和上一篇文章中的 `.foregroundColor(.secondary)` 类似，都是在视图的后面调用的一个方法，这类方法在 SwiftUI 中都被称为 modifier。除了直接添加代码，这里我们展示一下如何用拖拽的方式添加 modifier。
+下一步，我们想为图片加个圆角。没错，加圆角的方式和上一篇文章中的 `.foregroundColor(.secondary)` 类似，都是在视图的后面调用一个方法，这类方法在 SwiftUI 中都被称为 modifier。除了直接添加代码，这里我们展示一下如何用拖拽的方式添加 modifier。
 
 点击右上角的 “+”，选择 Modifers，并搜索 Corner Radius。拖拽这个 modifier 至预览的图像上，设定需要的圆角半径，就完成了。
 
@@ -101,21 +95,21 @@ struct ContentView: View {
 
 <img src="img/1_fig1.png"/>
 
-然后在 `List` 的成员中添加一个 `NavigationLink` 视图，这个视图需要 2 个输入，第一个是跳转后的目标视图，第二个则是当前的视图。为了简单起见，我们暂时让跳转后只显示会议室的名字，所以第一个输入为 `destination: Text(room.name)`。第二个参数则是之前的每个会议室的格子。
+然后在 `List` 的成员中添加一个 `NavigationLink` 视图，这个视图需要 2 个输入，第一个是跳转后的目标视图，第二个则是当前的视图。为了简单起见，我们暂时把跳转后的视图设置为一个显示会议室的名字的 `Text`，所以第一个输入为 `destination: Text(room.name)`。第二个参数则是之前的每个会议室的列表格子。
 
 <img src="img/1_fig2.png"/>
 
-到这里我们的跳转功能就完成了。不过该怎么查看效果呢？可以点击预览界面上的运行按钮（圆形中一个三角形），就会进入实时预览模式，在这个模式下，我们就可以通过点击会议室的格子，看到跳转的效果了。
+到这里我们的跳转功能就完成了。不过该怎么查看效果呢？可以点击预览界面上的运行按钮（圆形中有一个三角形的那个），进入实时预览模式，在这个模式下，我们就可以通过点击会议室的格子，看到跳转的效果了。
 
 <img src="img/1_gif3.gif"/>
 
-上图我们可以看到， SwiftUI 自动生成了转换的动画。除此之外，如果我们缓慢的切换页面，我们可以看到 SwiftUI 自动高亮了选中的部分，并且在切换过程中自动地对各个部分进行了渐变、放缩和变色等处理，让整个过程非常自然。要知道我们可是没有写任何动画相关的代码！
+上图我们可以看到， SwiftUI 自动生成了转换的动画。不止如此，如果我们缓慢的切换页面，可以看到 SwiftUI 自动高亮了选中的部分，并且在切换过程中对视图的各部分进行了渐变、放缩和变色等处理，让整个过程非常自然。要知道我们可是没有写任何动画相关的代码！这就是 SwiftUI 的一大优势，框架本身会自动为用户生成符合 iOS 使用习惯的动画。
 
 <img src="img/1_gif4.gif"/>
 
 ## 提取子视图
 
-添加了跳转功能之后，`ContentView` 视图逐渐变得有些复杂了，这个时候我们就需要考虑要对视图进行抽象。这次我们选择把 `List` 中的单元抽离出来。Xcode 提供了非常方便的抽象工具。按住 command 点击 `NavigationLink` ，选择 Extract Subview，Xcode 就会自动把它转化为一个子视图 `ExtractedView`，还可以直接进行重命名，这里我们命名为 `RoomCell`。
+添加了跳转功能之后，`ContentView` 视图变得有些复杂了，这个时候我们就需要考虑要对视图进行抽象。我们不妨尝试把 `List` 中的单元抽离出来。Xcode 提供了非常方便的抽象工具。按住 command 点击 `NavigationLink` ，选择 Extract Subview，Xcode 就会自动把它转化为一个子视图 `ExtractedView`，还可以直接进行重命名，这里我们命名为 `RoomCell`。
 
 <img src="img/1_gif5.gif"/>
 
@@ -144,15 +138,7 @@ struct RoomCell: View {
     
     var body: some View {
         NavigationLink(
-            destination: Text(room.name)) {
-            Image(room.thumbnailName)
-                .cornerRadius(8)
-            VStack(alignment: .leading) {
-                Text(room.name)
-                Text("\(room.capacity) people")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
+            ...
         }
     }
 }
