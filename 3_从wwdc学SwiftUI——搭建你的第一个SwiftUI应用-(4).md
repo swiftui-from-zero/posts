@@ -1,6 +1,6 @@
 # 从 wwdc 学 SwiftUI——搭建你的第一个 SwiftUI 应用 (4)
 
-让我们继续跟着 wwdc2019 的 [Introducing SwiftUI: Building Your First App](https://developer.apple.com/videos/play/wwdc2019/204/) 来学习使用 SwiftUI。
+这是我们的系列教程的最后一篇了，让我们继续跟着 wwdc2019 的 [Introducing SwiftUI: Building Your First App](https://developer.apple.com/videos/play/wwdc2019/204/) 来学习使用 SwiftUI 吧。本篇会介绍在 SwiftUI 中如何根据用户输入调节视图，以及如何用预览来查看我们的应用在不同系统环境下的样子。
 
 ## 下载项目
 
@@ -18,7 +18,7 @@ git checkout before-mutable-list
 
 ## 提取存储模型
 
-这次的代码和 (3) 的结尾相比，主要是增加了 `RoomStore.swift` 这个文件，以及一些后面要用到的图片。
+首先来介绍一下这次的起始代码和上一讲末尾的有什么区别。和 (3) 的结尾相比，我们主要是增加了 `RoomStore.swift` 这个文件，以及一些后面要用到的图片。
 
 `RoomStore.swift` 中的代码非常简单，就是一个存储会议室数组的类：
 
@@ -63,11 +63,11 @@ struct ContentView_Previews: PreviewProvider {
 
 ## 增删会议室
 
-现在我们的视图只能显示 `testData` 中预设的值，我们希望能对这些值进行增删。
+现在我们的视图只能显示 `testData` 中预设的值。要让我们的应用更有用些，就得让用户可以增删会议室。
 
-首先是增，我们希望能点击一个按钮，添加一个能容纳 2000 人的大会议室 "Hall 2"。
+首先是增，简单起见，我们打算添加一个按钮：用户点击它的时候，列表中就会添加一个能容纳 2000 人的大会议室 "Hall 2"。
 
-先要做一些准备工作，我们需要在 `List` 中加一个按钮。这里就要提到 `List` 的一个特性了，它既可以动态生成列表，也就是把传入的数组中的每个元素都转化为一个格子，也可以生成静态列表，也就是直接把所有的格子给它，由他进行排布。为了添加这个按钮，我们需要把动态列表转为静态。也就是从：
+先来修改视图，也就是在 `List` 中加一个按钮。这里就要提到 `List` 的一个特性了，它既根据传入的数据可以动态生成列表，也就是把传入的数组中的每个元素都转化为一个格子；也可以生成静态列表，也就是直接把所有的格子给它，由它进行排布。为了添加这个按钮，我们需要把动态列表转为静态。也就是从：
 
 ```swift
 List(store.rooms) { room in
@@ -85,7 +85,7 @@ List {
 }
 ```
 
-这个修改应该不会更改预览的样子。之后我们把按钮加上：
+大家可以把这里的 `ForEach` 理解成一个循环就好。上面的这些修改不会改变预览的样子。改成静态之后，我们就能按钮加上了（如果是在动态列表中加一个按钮，相当于在每个会议室上面都加了一个，有兴趣的朋友可以试一试）：
 
 ```swift
 List {
@@ -100,7 +100,7 @@ List {
 
 <img src="img/3_fig1.png"/>
 
-接下来，添加一个 `addRoom` 函数作为点击按钮的数据操作，为了简单起见，我们设置点击一下按钮就会添加 Hall 2 这个会议室。然后回忆起 (3) 中 `RoomDetail` 视图中的 `zoomed`，我们尝试在 `store` 参数前面加一个 `@State`。于是代码变成了：
+在视图上加上按钮之后，我们要绑定点击按钮的动作了。在 `ContentView` 中添加一个 `addRoom` 函数作为按钮的 `action` 参数。我们设置点击一下按钮就会添加 Hall 2 这个会议室。然后回忆起 (3) 中 `RoomDetail` 视图中的 `zoomed`，我们尝试在 `store` 参数前面加一个 `@State`。于是代码变成了：
 
 ```swift
 struct ContentView: View {
@@ -124,7 +124,7 @@ struct ContentView: View {
 }
 ```
 
-这个时候在预览中尝试点击按钮，却没有效果。为什么呢？这是因为我们的 `RoomStore` 是引用类型（`class`），而非值类型（`struct`）。SwiftUI 要求我们对值类型和引用类型采取不同的操作。如果在 `RoomStore.swift` 中，把 `class RoomStore` 改成 `struct RoomStore` 的话，按钮就变得有效了。
+这个时候在预览中尝试点击按钮，却没有效果。诶，这是为什么呢？这里要注意了，我们的 `RoomStore` 是引用类型（`class`），而非值类型（`struct`）。SwiftUI 要求我们对值类型和引用类型采取不同的操作。如果在 `RoomStore.swift` 中，把 `class RoomStore` 改成 `struct RoomStore` 的话，按钮就变得有效了。
 
 对于引用类型，我们需要修改 `RoomStore` 类，给他加上 `ObservableObject` 这个协议，并把需要视图关注的成员变量加上 `@Published` property wrapper，修改后的 `RoomStore` 变为：
 
@@ -138,7 +138,7 @@ class RoomStore: ObservableObject {
 }
 ```
 
-在 `ContentView` 中，在 `store` 前使用 `@ObservedObject` 而不是 `@State`。
+另外，我们还要在 `ContentView` 中，在 `store` 前使用 `@ObservedObject` 而不是 `@State`。
 
 ```swift
 struct ContentView: View {
@@ -190,7 +190,7 @@ List {
 
 <img src="img/3_fig2.png"/>
 
-接下来，我们来加入删除操作。删除操作格外简单，控制生成列表单元的 `ForEach` 上使用 `onDelete` 这个 modifier 就好了。当然，我们还需要给 `onDelete` 提供一个回调函数。在 `ContentView` 中写一个 `delete` 函数，通过 `IndexSet` 删除 `store.rooms` 中对应的会议室，并把这个函数传给 `onDelete` 就行了。修改后的 `ContentView` 的代码如下：
+接下来，我们来加入删除操作。删除操作格外简单，控制生成列表单元的 `ForEach` 上使用 `onDelete` 这个 modifier 就好了。当然，我们还需要给 `onDelete` 提供一个回调函数。在 `ContentView` 中写一个 `delete` 函数，注意这个函数的输入需要是 `IndexSet` 类型哦。把这个函数传给 `onDelete` 就行了。修改后的 `ContentView` 的代码如下：
 
 ```swift
 struct ContentView: View {
@@ -271,7 +271,7 @@ struct ContentView: View {
 
 ## 为不同环境设置添加更多预览
 
-到这里我们就完成了这个会议室应用！不过在用户使用应用的时候，可能会有不同的系统环境设置，例如有的用户可能愿意使用更大的默认字号，有的用户喜欢黑暗模式。在开发过程中，我们也需要保证这些用户能正常使用我们的应用，那么有没有一些能方便查看不同环境设置下我们的应用的样子呢？别担心，SwiftUI 的工程师们也考虑到了这一点，我们可以通过增加不同的预览来实现这个功能。
+到这里我们就完成了这个会议室应用！不过在用户使用应用的时候，可能会有不同的系统环境设置：有的用户可能会使用更大的默认字号；有的用户喜欢黑暗模式。在开发过程中，我们也需要保证这些用户能正常使用我们的应用，那么有没有一些能方便查看不同环境设置下我们的应用的样子呢？别担心，SwiftUI 的工程师们也考虑到了这一点，我们可以通过增加不同的预览来实现这个功能。
 
 和 (3) 中同时查看有无摄像头的页面一样。我们可以通过增加预览的方式来查看不同系统环境下应用的样子。在 `ContentView.swfit` 的预览部分的代码中。按住 command 点击 `ContentView`，并选择 Group，从而将预览视图放入 `Group` 中。对于大字号，插入
 
@@ -326,5 +326,4 @@ struct ContentView_Previews: PreviewProvider {
 <img src="img/3_fig3.png"/>
 
 
-
-至此，在这一讲中，我们学习了该如何根据用户的输入动态调整数据，如何添加编辑模式，以及如何更好地使用预览功能，去查看不同环境下应用的样子。这也是我们的这个系列教程的最后一篇了，希望通过这几篇文章，能让你对 SwiftUI 的基本使用方法有个大致的了解，也能感受到用 SwiftUI 写一个应用是多么得简单~
+到这里，我们的教程就结束啦。在这一讲中，我们学习了该如何根据用户的输入动态调整数据，如何添加编辑模式，以及如何更好地使用预览功能，去查看不同环境下应用的样子。这也是我们的这个系列教程的最后一篇了，希望通过这几篇文章，能让你对 SwiftUI 的基本使用方法有个大致的了解，也能感受到用 SwiftUI 写一个应用是多么得简单~
